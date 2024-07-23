@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix
+  labels:
+    role: netflix
+    env: demo
+spec: 
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels: 
+      role: netflix
+  template:
+    metadata:
+      labels:
+        role: netflix
+    spec: 
+      containers:
+      - name: netflix-container
+        image: ${K8S_IMAGE}
+        imagePullPolicy: Always
