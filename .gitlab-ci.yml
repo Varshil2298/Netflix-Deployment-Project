@@ -39,8 +39,8 @@ stages:
 code_coverage:
    stage: test
    extends: .prepare_nodejs_environment
- #  rules:
- #    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+   rules:
+     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
    script:
      - npm run coverage
    artifacts:
