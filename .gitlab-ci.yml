@@ -104,21 +104,22 @@ deploy_to_kubernetes:
     - mv ./kubectl /usr/local/bin/kubectl
     - kubectl version --short --client
     - apk add --no-cache gettext
-    - kubectl config get-contexts
-    - kubectl get nodes
+  #  - kubectl config get-contexts
+  #  - kubectl get nodes
   # rules:
   #   - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
   # dependencies:
   #   - docker_build  
-  # script:
-  #  # - kubectl get nodes
-  #   # Replace the ${K8S_IMAGE} placeholder with the actual image URI in deployment.yaml
-  #   - export IMAGE_URI=$(cat image_uri.txt)
-  #   - sed -i "s|\${K8S_IMAGE}|$IMAGE_URI|g" Kubernetes/deployment.yaml
-  #   # Apply the updated deployment.yaml to the Kubernetes cluster
-  #   - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/deployment.yaml
-  #   # Apply the service.yaml to the Kubernetes cluster
-  #   - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/service.yaml
-  #   # Apply the ingress.yaml to the Kubernetes cluster
-  #   - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/ingress.yaml 
+  script:
+    - kubectl config get-contexts
+    - kubectl get nodes
+    # # Replace the ${K8S_IMAGE} placeholder with the actual image URI in deployment.yaml
+    # - export IMAGE_URI=$(cat image_uri.txt)
+    # - sed -i "s|\${K8S_IMAGE}|$IMAGE_URI|g" Kubernetes/deployment.yaml
+    # # Apply the updated deployment.yaml to the Kubernetes cluster
+    # - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/deployment.yaml
+    # # Apply the service.yaml to the Kubernetes cluster
+    # - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/service.yaml
+    # # Apply the ingress.yaml to the Kubernetes cluster
+    # - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/ingress.yaml 
 
