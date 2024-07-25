@@ -119,4 +119,6 @@ deploy_to_kubernetes:
     # Apply the service.yaml to the Kubernetes cluster
     - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/service.yaml
     # Apply the ingress.yaml to the Kubernetes cluster
-    - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/ingress.yaml    
+    - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/ingress.yaml 
+    
+       
