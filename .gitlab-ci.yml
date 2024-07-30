@@ -39,8 +39,8 @@ stages:
 code_coverage:
    stage: test
    extends: .prepare_nodejs_environment
-   rules:
-     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  # rules:
+  #   - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
    script:
      - npm run coverage
    artifacts:
@@ -66,8 +66,8 @@ docker_build:
     - source /tmp/venv/bin/activate
     - pip install awscli
     - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
+ # rules:
+ #   - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
  #   - aws --version
   #  - docker info
  #   - docker --version
@@ -113,13 +113,13 @@ deploy_to_kubernetes:
   script:
     - kubectl config get-contexts
     - kubectl get nodes
-    # # Replace the ${K8S_IMAGE} placeholder with the actual image URI in deployment.yaml
-    # - export IMAGE_URI=$(cat image_uri.txt)
-    # - sed -i "s|\${K8S_IMAGE}|$IMAGE_URI|g" Kubernetes/deployment.yaml
-    # # Apply the updated deployment.yaml to the Kubernetes cluster
-    # - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/deployment.yaml
-    # # Apply the service.yaml to the Kubernetes cluster
-    # - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/service.yaml
-    # # Apply the ingress.yaml to the Kubernetes cluster
-    # - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/ingress.yaml 
+    # Replace the ${K8S_IMAGE} placeholder with the actual image URI in deployment.yaml
+    - export IMAGE_URI=$(cat image_uri.txt)
+    - sed -i "s|\${K8S_IMAGE}|$IMAGE_URI|g" Kubernetes/deployment.yaml
+    # Apply the updated deployment.yaml to the Kubernetes cluster
+    - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/deployment.yaml
+    # Apply the service.yaml to the Kubernetes cluster
+    - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/service.yaml
+    # Apply the ingress.yaml to the Kubernetes cluster
+    - kubectl -n $KUBERNETES_NAMESPACE apply -f Kubernetes/ingress.yaml 
 
