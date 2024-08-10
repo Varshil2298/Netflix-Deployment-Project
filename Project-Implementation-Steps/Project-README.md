@@ -33,8 +33,8 @@ The `Kubernetes-Manifests-Files` directory includes all the necessary Kubernetes
 ### Step 2: EC2 Setup OR EKS cluster setup through locally
 
 ### Note:
-**Option A:** Launch an EC2 instance (Ubuntu) in your preferred AWS region (e.g., ap-south-1) and SSH into it.
-**Option B:** If you're setting up the EKS cluster locally, ensure you have all the prerequisites installed (jump to Step 7).
+- **Option A:** Launch an EC2 instance (Ubuntu) in your preferred AWS region (e.g., ap-south-1) and SSH into it.
+- **Option B:** If you're setting up the EKS cluster locally, ensure you have all the prerequisites installed (jump to Step 7).
 
 
 ### Step 3: Install AWS CLI v2
@@ -97,12 +97,12 @@ aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-
 ```
 
 ```bash
-eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=my_cluster --approve
+eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster=app-cluster --approve
 ```
 
 ## Step11: Create an IAM Role to attach the permission using eksctl
 ```bash
-eksctl create iamserviceaccount --cluster=my_cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::111122223333:policy/AWSLoadBalancerControllerIAMPolicy --approve --region=ap-south-1
+eksctl create iamserviceaccount --cluster=app-cluster --namespace=kube-system --name=aws-load-balancer-controller --role-name AmazonEKSLoadBalancerControllerRole --attach-policy-arn=arn:aws:iam::111122223333:policy/AWSLoadBalancerControllerIAMPolicy --approve --region=ap-south-1
 ```
 
 ## Step12: Install the AWS Load Balancer Controller using Helm V3
@@ -110,7 +110,7 @@ eksctl create iamserviceaccount --cluster=my_cluster --namespace=kube-system --n
 ```bash
 helm repo add eks https://aws.github.io/eks-charts
 helm repo update eks
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=my_cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=app-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
 ```
 
 ### Cleanup
