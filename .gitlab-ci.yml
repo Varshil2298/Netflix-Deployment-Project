@@ -39,8 +39,8 @@ stages:
 code_coverage:
    stage: test
    extends: .prepare_nodejs_environment
-  # rules:
-  #   - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+   rules:
+     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
    script:
      - npm run coverage
    artifacts:
@@ -66,8 +66,8 @@ docker_build:
     - source /tmp/venv/bin/activate
     - pip install awscli
     - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
- # rules:
- #   - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
  #   - aws --version
   #  - docker info
  #   - docker --version
@@ -106,8 +106,8 @@ deploy_to_kubernetes:
     - apk add --no-cache gettext
   #  - kubectl config get-contexts
   #  - kubectl get nodes
-  # rules:
-  #   - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'  
   # dependencies:
   #   - docker_build  
   script:

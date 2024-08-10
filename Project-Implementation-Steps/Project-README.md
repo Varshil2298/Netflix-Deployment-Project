@@ -14,13 +14,13 @@ In the `Gitlab-Pipeline-Code` directory, you'll find Gitlab pipeline scripts. Th
 The `Kubernetes-Manifests-Files` directory includes all the necessary Kubernetes manifests required to deploy the Netflix Clone application on AWS EKS. These manifests define the deployment, services, and other Kubernetes resources.
 
 ## Project Details
-🛠️ **Tools Explored:**
+ **Tools Explored:**
 - **AWS CLI & ECR:** For managing AWS infrastructure and secure image storage.
-**GitLab:** To set up a robust CI/CD pipeline.
-**Kubectl & EKS:** For deploying and managing Kubernetes clusters on AWS.
+- **GitLab:** To set up a robust CI/CD pipeline.
+- **Kubectl & EKS:** For deploying and managing Kubernetes clusters on AWS.
 
-🚢 **High-Level Overview:**
-- IAM User setup & Terraform magic on AWS
+ **High-Level Overview:**
+- IAM User setup
 - Gitlab deployment with AWS integration
 - EKS Cluster creation & Load Balancer configuration
 - Private ECR repositories for secure image management
@@ -32,12 +32,10 @@ The `Kubernetes-Manifests-Files` directory includes all the necessary Kubernetes
 
 ### Step 2: EC2 Setup OR EKS cluster setup through locally
 
-### Note
-### To create EKS cluster through EC2 setup, follow from Step3 to Step6 
-### To create EKS cluster manually through terminal , follow directly from Step7 if prerequise are already installed
+### Note:
+**Option A:** Launch an EC2 instance (Ubuntu) in your preferred AWS region (e.g., ap-south-1) and SSH into it.
+**Option B:** If you're setting up the EKS cluster locally, ensure you have all the prerequisites installed (jump to Step 7).
 
-- Launch an Ubuntu instance in your favourite region (eg. region `ap-south-1`).
-- SSH into the instance from your local machine.
 
 ### Step 3: Install AWS CLI v2
 ``` shell
